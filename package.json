@@ -1,6 +1,6 @@
 {
   "name": "rmasonry",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Masonry",
   "main": "index.js",
   "author": "Aeden Murray <aeden@aedenmurray.dev> (https://aedenmurray.dev)",
