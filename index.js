@@ -1,4 +1,5 @@
-import Masonry from './Masonry';
+import Masonry from './src/Masonry';
 
-export { default as ResponsiveColumns } from './ResponsiveColumns';
+export { useColumns } from './src/ColumnsContext';
+export { default as ResponsiveColumns } from './src/ResponsiveColumns';
 export default Masonry;
