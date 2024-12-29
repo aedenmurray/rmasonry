@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import ColumnsContext from 'ColumnsContext';
+import ColumnsContext from '../ColumnsContext';
 
 const defaultBreakpoints = {
   1536: 5,
