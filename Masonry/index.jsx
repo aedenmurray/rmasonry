@@ -1,13 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-extraneous-dependencies */
 import { useEffect, useState, Children } from 'react';
+import { useColumns } from './ColumnsContext';
 import Container from './Container';
 import Column from './Column';
 
 const createEmptyColumns = (length) =>
   Array.from({ length }, () => []);
 
-const distributeSequentially = (children, columns) => {
+const distribute = (children, columns) => {
   const childrenArray = Children.toArray(children);
   const empty = createEmptyColumns(columns);
 
@@ -19,17 +20,20 @@ const distributeSequentially = (children, columns) => {
     }, empty);
 };
 
-function Masonry({ children, columns = 4, gap = 8 }) {
+function Masonry({ children, columns, gap = 8 }) {
+  const columnsFromContext = useColumns();
+  const columnsValue = columns ?? columnsFromContext;
+
   const [columnMatrix, setColumnMatrix] = useState(
-    () => distributeSequentially(children, columns),
+    () => distribute(children, columnsValue),
   );
 
   useEffect(
     () => {
-      const distributed = distributeSequentially(children, columns);
+      const distributed = distribute(children, columnsValue);
       setColumnMatrix(distributed);
     },
-    [children, columns],
+    [children, columnsValue],
   );
 
   return (
