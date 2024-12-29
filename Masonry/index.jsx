@@ -8,37 +8,32 @@ import Column from './Column';
 const createEmptyColumns = (length) =>
   Array.from({ length }, () => []);
 
-const distribute = (children, columns) => {
-  const childrenArray = Children.toArray(children);
-  const empty = createEmptyColumns(columns);
-
-  return childrenArray
-    .reduce((acc, curr, idx) => {
-      const columnIdx = (idx % columns);
-      acc[columnIdx].push(curr);
-      return acc;
-    }, empty);
-};
-
 function Masonry({ children, columns, gap = 8 }) {
   const columnsFromContext = useColumns();
   const columnsValue = columns ?? columnsFromContext;
 
-  const [columnMatrix, setColumnMatrix] = useState(
-    () => distribute(children, columnsValue),
-  );
+  const distribute = () => {
+    const childrenArray = Children.toArray(children);
+    const empty = createEmptyColumns(columnsValue);
+
+    return childrenArray
+      .reduce((acc, curr, idx) => {
+        const columnIdx = (idx % columnsValue);
+        acc[columnIdx].push(curr);
+        return acc;
+      }, empty);
+  };
+
+  const [matrix, setMatrix] = useState(distribute);
 
   useEffect(
-    () => {
-      const distributed = distribute(children, columnsValue);
-      setColumnMatrix(distributed);
-    },
+    () => { setMatrix(distribute); },
     [children, columnsValue],
   );
 
   return (
     <Container gap={gap}>
-      {columnMatrix.map(
+      {matrix.map(
         (column, idx) => (
           <Column
             key={idx}
