@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-extraneous-dependencies */
 import { useEffect, useState, Children } from 'react';
-import { useColumns } from './ColumnsContext';
+import { useColumns } from 'ColumnsContext';
 import Container from './Container';
 import Column from './Column';
 
