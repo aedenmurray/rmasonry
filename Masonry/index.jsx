@@ -25,7 +25,10 @@ function Masonry({ children, columns = 4, gap = 8 }) {
   );
 
   useEffect(
-    () => { setColumnMatrix(distributeSequentially(children, columns)); },
+    () => {
+      const distributed = distributeSequentially(children, columns);
+      setColumnMatrix(distributed);
+    },
     [children, columns],
   );
 
