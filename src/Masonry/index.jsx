@@ -5,7 +5,7 @@ import { useColumns } from '../ColumnsContext';
 import Container from './Container';
 import Column from './Column';
 
-const createEmptyColumns = (length) =>
+const createEmptyMatrix = (length) =>
   Array.from({ length }, () => []);
 
 function Masonry({ children, columns, gap = 8 }) {
@@ -15,7 +15,7 @@ function Masonry({ children, columns, gap = 8 }) {
   const matrix = useMemo(
     () => {
       const childrenArray = Children.toArray(children);
-      const empty = createEmptyColumns(columnsValue);
+      const empty = createEmptyMatrix(columnsValue);
 
       return childrenArray
         .reduce((acc, curr, idx) => {
