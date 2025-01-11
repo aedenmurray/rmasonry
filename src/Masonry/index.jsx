@@ -62,6 +62,16 @@ function Masonry({ children, columns, sequential, gap = 8 }) {
   useLayoutEffect(
     () => {
       if (sequential) {
+        if (refMatrix) {
+          setRefMatrix(undefined);
+          setSeqMatrix(
+            createSeqMatrix(
+              columnsValue,
+              children,
+            ),
+          );
+        }
+
         return;
       }
 
