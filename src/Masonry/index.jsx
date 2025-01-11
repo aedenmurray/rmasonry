@@ -37,7 +37,7 @@ const createRefMatrix = (columns, children, refs) => {
     }, empty);
 };
 
-function Masonry({ children, columns, gap = 8 }) {
+function Masonry({ children, columns, sequential, gap = 8 }) {
   const columnsFromContext = useColumns();
   const columnsValue = columns ?? columnsFromContext;
   const [seqMatrix, setSeqMatrix] = useState(() => createSeqMatrix(columnsValue, children));
@@ -61,6 +61,10 @@ function Masonry({ children, columns, gap = 8 }) {
 
   useLayoutEffect(
     () => {
+      if (sequential) {
+        return;
+      }
+
       setRefMatrix(
         createRefMatrix(
           columnsValue,
@@ -69,7 +73,10 @@ function Masonry({ children, columns, gap = 8 }) {
         ),
       );
     },
-    [seqMatrix],
+    [
+      seqMatrix,
+      sequential,
+    ],
   );
 
   return (
