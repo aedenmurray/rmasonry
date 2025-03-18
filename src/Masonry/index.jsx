@@ -27,10 +27,11 @@ const createRefMatrix = (columns, children, refs) => {
 
   return childrenArray
     .reduce((acc, curr, idx) => {
+      if (!refs.current[idx]) return acc;
       const shortestColumnHeight = Math.min(...columnHeights);
       const shortestColumnIdx = columnHeights.indexOf(shortestColumnHeight);
       const elementHeight = refs.current[idx].getBoundingClientRect().height;
-      columnHeights.splice(shortestColumnIdx, 1, elementHeight + shortestColumnHeight);
+      columnHeights[shortestColumnIdx] = elementHeight + shortestColumnHeight;
 
       acc[shortestColumnIdx].push({ element: curr, idx });
       return acc;
@@ -38,11 +39,16 @@ const createRefMatrix = (columns, children, refs) => {
 };
 
 function Masonry({ children, columns, sequential, gap = 8 }) {
+  const refs = useRef([]);
   const columnsFromContext = useColumns();
   const columnsValue = columns ?? columnsFromContext;
-  const [seqMatrix, setSeqMatrix] = useState(() => createSeqMatrix(columnsValue, children));
-  const [refMatrix, setRefMatrix] = useState(() => undefined);
-  const refs = useRef([]);
+  const [refMatrix, setRefMatrix] = useState(undefined);
+  const [seqMatrix, setSeqMatrix] = useState(
+    () => createSeqMatrix(
+      columnsValue,
+      children,
+    ),
+  );
 
   useLayoutEffect(
     () => {
@@ -52,40 +58,24 @@ function Masonry({ children, columns, sequential, gap = 8 }) {
           children,
         ),
       );
+
+      if (!sequential) {
+        requestAnimationFrame(
+          () => {
+            setRefMatrix(
+              createRefMatrix(
+                columnsValue,
+                children,
+                refs,
+              ),
+            );
+          },
+        );
+      }
     },
     [
       columnsValue,
       children,
-    ],
-  );
-
-  useLayoutEffect(
-    () => {
-      if (sequential) {
-        if (refMatrix) {
-          setRefMatrix(undefined);
-          setSeqMatrix(
-            createSeqMatrix(
-              columnsValue,
-              children,
-            ),
-          );
-        }
-
-        return;
-      }
-
-      setRefMatrix(
-        createRefMatrix(
-          columnsValue,
-          children,
-          refs,
-        ),
-      );
-    },
-    [
-      seqMatrix,
-      sequential,
     ],
   );
 
@@ -94,10 +84,10 @@ function Masonry({ children, columns, sequential, gap = 8 }) {
       {(refMatrix ?? seqMatrix).map(
         (items, idx) => (
           <Column
-            items={items}
-            refs={refs}
-            gap={gap}
             key={idx}
+            gap={gap}
+            refs={refs}
+            items={items}
           />
         ),
       )}
