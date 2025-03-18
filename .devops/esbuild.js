@@ -2,9 +2,10 @@
 import esbuild from 'esbuild';
 
 await esbuild.build({
-  external: ['react'],
   entryPoints: ['index.js'],
   outfile: 'bundle.js',
+  external: ['react'],
+  jsx: 'automatic',
   format: 'esm',
   bundle: true,
   minify: true,
