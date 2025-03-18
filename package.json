@@ -1,12 +1,12 @@
 {
   "name": "rmasonry",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React Masonry",
   "main": "index.js",
   "author": {
     "name": "Aeden Murray",
     "email": "aeden@aedenmurray.dev",
-    "url": "https://www.aedenmurray.dev" 
+    "url": "https://www.aedenmurray.dev"
   },
   "type": "module",
   "license": "MIT",
