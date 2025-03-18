@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "vite --config .devops/vite.config.js serve",
-    "build": "node .devops/bundle.js"
+    "build": "node .devops/esbuild.js"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
