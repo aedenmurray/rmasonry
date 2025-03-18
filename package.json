@@ -2,7 +2,7 @@
   "name": "rmasonry",
   "type": "module",
   "license": "MIT",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Masonry",
   "main": "bundle.js",
   "author": {
