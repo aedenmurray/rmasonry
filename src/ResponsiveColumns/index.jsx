@@ -15,7 +15,7 @@ export default function ResponsiveColumns({
   debounce = 0,
   children,
 }) {
-  const [columns, setColumns] = useState(1);
+  const [columns, setColumns] = useState(4);
 
   const breakpointsSorted = useMemo(
     () => Object.keys(breakpoints)

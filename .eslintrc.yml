@@ -26,3 +26,9 @@ rules:
   "react/prop-types": "off"  
   "no-confusing-arrow": "off"
   "implicit-arrow-linebreak": "off"
+  operator-linebreak:
+    - error
+    - after
+    - overrides:
+        "?": before
+        ":": before
