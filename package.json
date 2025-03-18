@@ -1,5 +1,7 @@
 {
   "name": "rmasonry",
+  "type": "module",
+  "license": "MIT",
   "version": "0.0.6",
   "description": "React Masonry",
   "main": "bundle.js",
@@ -8,8 +10,9 @@
     "email": "aeden@aedenmurray.dev",
     "url": "https://www.aedenmurray.dev"
   },
-  "type": "module",
-  "license": "MIT",
+  "files": [
+    "bundle.js"
+  ],
   "scripts": {
     "serve": "vite --config .devops/vite.config.js serve",
     "build": "node .devops/esbuild.js"
